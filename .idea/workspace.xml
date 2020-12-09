@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23ac6bf2-8dc1-49fd-b80b-3871db185409" name="Default Changelist" comment="" />
+    <list default="true" id="23ac6bf2-8dc1-49fd-b80b-3871db185409" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Memory-Collector.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Memory-Collector.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Zeitplanung.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Zeitplanung.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/memory_collector/assets/sea.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/memory_collector/assets/images/sea.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/memory_collector/assets/space.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/memory_collector/assets/images/space.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/memory_collector/assets/travel1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/memory_collector/assets/images/travel1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/memory_collector/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/memory_collector/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/memory_collector/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/memory_collector/pubspec.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
