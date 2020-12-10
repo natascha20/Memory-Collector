@@ -6,6 +6,15 @@ import 'package:flutter/material.dart';
 String title = "";
 String summary = "";
 String date = "";
+int _selectedIndex;
+
+void setState(Null Function() param0) {}
+
+void _onItemTapped(int index) {
+  setState(() {
+    _selectedIndex = index;
+  });
+}
 
 void main() {
   FlutterError.onError = (FlutterErrorDetails details) {
@@ -30,89 +39,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectetIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0 : Home',
-    ),
-    Text('Index = 1 : New'),
-    Text('Index = 2 : Location'),
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectetIndex = index;
-    });
-  }
+class New extends StatelessWidget {
+  int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            color: Theme.of(context).accentColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: Text('New'),
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectetIndex),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
-        onPressed: () {
-          return showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                content: Text(date + ' ' + title + '\n' + summary),
-              );
-            },
-          );
-        },
-        tooltip: 'Show me the value',
-        child: Icon(Icons.send),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'New',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on_outlined),
-            label: 'Places',
-          ),
-        ],
-        currentIndex: _selectetIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
-        onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-// Formular mit dem Titel, der Bescreibung & dem Datum:
-/*
- Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Container(
@@ -157,11 +94,181 @@ class _MyHomePageState extends State<MyHomePage> {
                           decoration: InputDecoration(
                             labelText: 'Text',
                           )),
+                      ElevatedButton(
+                        child: Text('Home'),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                      ElevatedButton(
+                        child: Text('Location'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Location()),
+                          );
+                        },
+                      )
                     ],
                   ),
                 )),
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'New',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_on_outlined),
+            label: 'Places',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Theme.of(context).primaryColor,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
 
- */
+class Location extends StatelessWidget {
+  int _selectedIndex = 2;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).accentColor,
+      appBar: AppBar(
+        title: Text('Locations'),
+      ),
+      body: Column(
+        children: [
+          ElevatedButton(
+            child: Text('Home'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          ElevatedButton(
+            child: Text('New'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'New',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_on_outlined),
+            label: 'Places',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Theme.of(context).primaryColor,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).accentColor,
+      appBar: AppBar(
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            color: Theme.of(context).accentColor,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: Column(
+        children: [
+          ElevatedButton(
+            child: Text('New'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => New()),
+              );
+            },
+          ),
+          ElevatedButton(
+            child: Text('Location'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Location()),
+              );
+            },
+          )
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
+        onPressed: () {
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(date + ' ' + title + '\n' + summary),
+              );
+            },
+          );
+        },
+        tooltip: 'Show me the value',
+        child: Icon(Icons.send),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'New',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_on_outlined),
+            label: 'Places',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Theme.of(context).primaryColor,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
