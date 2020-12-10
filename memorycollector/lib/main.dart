@@ -15,54 +15,6 @@ void main() {
   runApp(MyApp());
 }
 
-class CategorySelector extends StatefulWidget {
-  @override
-  _CategorySelectorState createState() => _CategorySelectorState();
-}
-
-class _CategorySelectorState extends State<CategorySelector> {
-  int selectedIndex = 0;
-  final List<String> categories = ['Memories', 'Places', 'Dates', 'Pictures'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 90.0,
-      color: Theme.of(context).primaryColor,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: categories.length,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 30.0,
-              ),
-              child: Text(
-                categories[index],
-                style: TextStyle(
-                  color: index == selectedIndex
-                      ? Colors.white
-                      : Theme.of(context).accentColor,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -87,18 +39,25 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Image _counter = Image.asset('img/Paper Flora.jpg');
+  int _selectetIndex = 0;
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0 : Home',
+    ),
+    Text('Index = 1 : New'),
+    Text('Index = 2 : Location'),
+  ];
 
-  void _incrementCounter() {
+  void _onItemTapped(int index) {
     setState(() {
-      _counter = Image.asset("img/Logo 500x500 px.png");
+      _selectetIndex = index;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
         title: Text(
           widget.title,
@@ -108,17 +67,61 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      body: Column(
+      body: Center(
+        child: _widgetOptions.elementAt(_selectetIndex),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
+        onPressed: () {
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(date + ' ' + title + '\n' + summary),
+              );
+            },
+          );
+        },
+        tooltip: 'Show me the value',
+        child: Icon(Icons.send),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'New',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.location_on_outlined),
+            label: 'Places',
+          ),
+        ],
+        currentIndex: _selectetIndex,
+        selectedItemColor: Theme.of(context).primaryColor,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+// Formular mit dem Titel, der Bescreibung & dem Datum:
+/*
+ Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          CategorySelector(),
           Container(
             height: 100,
             color: Theme.of(context).accentColor,
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
-              initialDateTime: DateTime(2000,1,1),
-              onDateTimeChanged: (DateTime newDateTime){
+              initialDateTime: DateTime(2020, 1, 1),
+              onDateTimeChanged: (DateTime newDateTime) {
                 newDateTime = date as DateTime;
               },
             ),
@@ -141,8 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           textInputAction: TextInputAction.send,
                           decoration: InputDecoration(
                             labelText: 'Titel',
-                          )
-                      ),
+                          )),
                       TextField(
                           onChanged: (text) {
                             summary = text;
@@ -161,23 +163,5 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
-        onPressed: () {
-          return showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                content: Text(date+' '+title+'\n'+summary),
-              );
-            },
-          );
-        },
-        tooltip: 'Show me the value',
-        child: Icon(Icons.send),
-      ),
-    );
-  }
-}
+
+ */
