@@ -25,7 +25,9 @@ class _CategorySelectorState extends State<CategorySelector> {
   Widget build(BuildContext context) {
     return Container(
       height: 90.0,
-      color: Theme.of(context).primaryColor,
+      color: Theme
+          .of(context)
+          .primaryColor,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
@@ -46,7 +48,9 @@ class _CategorySelectorState extends State<CategorySelector> {
                 style: TextStyle(
                   color: index == selectedIndex
                       ? Colors.white
-                      : Theme.of(context).accentColor,
+                      : Theme
+                      .of(context)
+                      .accentColor,
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.2,
@@ -95,53 +99,76 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            color: Theme.of(context).accentColor,
-            fontWeight: FontWeight.bold,
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
+        appBar: AppBar(
+          title: Text(
+            widget.title,
+            style: TextStyle(
+              color: Theme
+                  .of(context)
+                  .accentColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          CategorySelector(),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            CategorySelector(),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme
+                      .of(context)
+                      .accentColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  ),
                 ),
-              ),
-              child: TextField(
-                onChanged: (text) {
-                  value = text;
-                },
-                cursorColor: Theme.of(context).primaryColor,
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.send,
-                decoration: InputDecoration(
-                  labelText: 'Dein Erlebniss',
-                  icon: Icon(Icons.favorite, size: 40.0,),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                    onChanged: (text) {
+                      value = text;
+                    },
+                    cursorColor: Theme
+                        .of(context)
+                        .primaryColor,
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.send,
+                    decoration: InputDecoration(
+                      labelText: 'Titel',
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: (){
+                          return showDialog(
+                            context: context,
+                            builder: (context){
+                              return AlertDialog(
+                                content: Text(value),
+                              );
+                            },
+                          );
+                        },
+                      )
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Theme.of(context).accentColor,
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
+        onPressed: (){},
+        tooltip: 'Show me the value',
+        child: Icon(Icons.favorite),
+        ),
+        );
+    }
   }
-}
