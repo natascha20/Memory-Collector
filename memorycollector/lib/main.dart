@@ -2,11 +2,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+String value = "";
+
 void main() {
-  FlutterError.onError = (FlutterErrorDetails details){
+  FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
-    if(kReleaseMode)
-      exit(1);
+    if (kReleaseMode) exit(1);
   };
   runApp(MyApp());
 }
@@ -18,7 +19,7 @@ class CategorySelector extends StatefulWidget {
 
 class _CategorySelectorState extends State<CategorySelector> {
   int selectedIndex = 0;
-  final List<String> categories=['Erinnerungen', 'Orte', 'Datum', 'Fotos'];
+  final List<String> categories = ['Erinnerungen', 'Orte', 'Datum', 'Fotos'];
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +29,9 @@ class _CategorySelectorState extends State<CategorySelector> {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length,
-        itemBuilder:(BuildContext context, int index) {
+        itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: (){
+            onTap: () {
               setState(() {
                 selectedIndex = index;
               });
@@ -43,7 +44,9 @@ class _CategorySelectorState extends State<CategorySelector> {
               child: Text(
                 categories[index],
                 style: TextStyle(
-                  color: index == selectedIndex ? Colors.white : Theme.of(context).accentColor,
+                  color: index == selectedIndex
+                      ? Colors.white
+                      : Theme.of(context).accentColor,
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.2,
@@ -61,16 +64,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'MemoryCollector',
       theme: ThemeData(
-        primaryColor: Colors.cyan,
-        accentColor: Colors.deepPurple[100],
+        primaryColor: Colors.pink[200],
+        accentColor: Colors.deepOrange[100],
       ),
       home: MyHomePage(title: 'MemoryCollector'),
     );
   }
 }
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -81,11 +84,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  Image _counter = Image.asset('img/Paper Flora.jpg');
 
   void _incrementCounter() {
     setState(() {
-      _counter++;
+      _counter = Image.asset("img/Logo 500x500 px.png");
     });
   }
 
@@ -95,40 +98,50 @@ class _MyHomePageState extends State<MyHomePage> {
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         title: Text(
-            widget.title,
+          widget.title,
           style: TextStyle(
             color: Theme.of(context).accentColor,
+            fontWeight: FontWeight.bold,
           ),
         ),
-
-
       ),
-      body:Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CategorySelector(),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          CategorySelector(),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
                 ),
               ),
-            )
-          ],
+              child: TextField(
+                onChanged: (text) {
+                  value = text;
+                },
+                cursorColor: Theme.of(context).primaryColor,
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.send,
+                decoration: InputDecoration(
+                  labelText: 'Dein Erlebniss',
+                  icon: Icon(Icons.favorite, size: 40.0,),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
-
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
-
-
