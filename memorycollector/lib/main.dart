@@ -35,11 +35,25 @@ class _CategorySelectorState extends State<CategorySelector> {
                 selectedIndex = index;
               });
             },
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 30.0,
+              ),
+              child: Text(
+                categories[index],
+                style: TextStyle(
+                  color: index == selectedIndex ? Colors.white : Theme.of(context).accentColor,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ),
           );
         },
       ),
     );
-    throw UnimplementedError();
   }
 }
 
@@ -50,7 +64,7 @@ class MyApp extends StatelessWidget {
       title: 'MemoryCollector',
       theme: ThemeData(
         primaryColor: Colors.cyan,
-        accentColor: Colors.deepPurple[50],
+        accentColor: Colors.deepPurple[100],
       ),
       home: MyHomePage(title: 'MemoryCollector'),
     );
@@ -78,13 +92,32 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+            widget.title,
+          style: TextStyle(
+            color: Theme.of(context).accentColor,
+          ),
+        ),
+
+
       ),
-      body: Column(
+      body:Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CategorySelector(),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).accentColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  ),
+                ),
+              ),
+            )
           ],
       ),
 
@@ -97,17 +130,5 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-/*
-Center(
-              child: Text(
-                'You have pushed the button this many times:',
-              ),
-            ),
 
-            Center(
-              child: Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ),
- */
+
