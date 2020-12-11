@@ -22,7 +22,6 @@
     <list default="true" id="23ac6bf2-8dc1-49fd-b80b-3871db185409" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/Memory-Collector.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Memory-Collector.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Zeitplanung.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/Zeitplanung.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/memorycollector/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/memorycollector/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,6 +75,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="360" y="219" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607590332154">
@@ -86,22 +86,22 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="633" y="354" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1607590312084" />
-    <state width="875" height="2" key="GridCell.Tab.0.bottom" timestamp="1607625652947">
+    <state width="875" height="302" key="GridCell.Tab.0.bottom" timestamp="1607681796770">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="875" height="2" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1607625652947" />
-    <state width="875" height="2" key="GridCell.Tab.0.center" timestamp="1607625652946">
+    <state width="875" height="302" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1607681796770" />
+    <state width="875" height="302" key="GridCell.Tab.0.center" timestamp="1607681796762">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="875" height="2" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1607625652946" />
-    <state width="875" height="2" key="GridCell.Tab.0.left" timestamp="1607625652945">
+    <state width="875" height="302" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1607681796762" />
+    <state width="875" height="302" key="GridCell.Tab.0.left" timestamp="1607681796760">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="875" height="2" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1607625652945" />
-    <state width="875" height="2" key="GridCell.Tab.0.right" timestamp="1607625652947">
+    <state width="875" height="302" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1607681796760" />
+    <state width="875" height="302" key="GridCell.Tab.0.right" timestamp="1607681796764">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="875" height="2" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1607625652947" />
+    <state width="875" height="302" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1607681796764" />
     <state x="397" y="199" width="1260" height="728" key="SettingsEditor" timestamp="1607589099920">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -110,5 +110,9 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state width="600" height="428" key="javadoc.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1607605646026" />
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup" timestamp="1607673681246">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="561" y="251" width="670" height="676" key="search.everywhere.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1607673681246" />
   </component>
 </project>
