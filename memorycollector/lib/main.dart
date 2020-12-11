@@ -115,24 +115,23 @@ class New extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'New',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on_outlined),
-            label: 'Places',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
-        onTap: _onItemTapped,
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Theme.of(context).accentColor,
+        onPressed: () {
+          return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                content: Text(date + ' ' + title + '\n' + summary),
+              );
+            },
+          );
+        },
+        tooltip: 'Show me the value',
+        child: Icon(Icons.send),
       ),
     );
   }
@@ -163,25 +162,6 @@ class Location extends StatelessWidget {
             },
           )
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'New',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on_outlined),
-            label: 'Places',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
-        onTap: _onItemTapped,
       ),
     );
   }
@@ -232,42 +212,6 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           )
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
-        onPressed: () {
-          return showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                content: Text(date + ' ' + title + '\n' + summary),
-              );
-            },
-          );
-        },
-        tooltip: 'Show me the value',
-        child: Icon(Icons.send),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'New',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on_outlined),
-            label: 'Places',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
-        onTap: _onItemTapped,
       ),
     );
   }
