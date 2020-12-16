@@ -10,7 +10,6 @@ String location = "";
 List post;
 void setState(Null Function() param0) {}
 
-
 void main() {
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
@@ -36,8 +35,6 @@ class MyApp extends StatelessWidget {
 }
 
 class New extends StatelessWidget {
-  int _selectedIndex = 1;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +54,7 @@ class New extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
+                      MyDatePicker(),
                       MyCustomForm(),
                       ElevatedButton(
                         child: Text('Home'),
@@ -78,11 +76,6 @@ class New extends StatelessWidget {
                 )),
           ),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Theme.of(context).accentColor,
       ),
     );
   }
@@ -132,42 +125,38 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).accentColor,
-      appBar: AppBar(
-        title: Text(
-          widget.title,
-          style: TextStyle(
-            color: Theme.of(context).accentColor,
-            fontWeight: FontWeight.bold,
+        backgroundColor: Theme.of(context).accentColor,
+        appBar: AppBar(
+          title: Text(
+            widget.title,
+            style: TextStyle(
+              color: Theme.of(context).accentColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            child: Text('New'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => New()),
-              );
-            },
-          ),
-          ElevatedButton(
-            child: Text('Location'),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Location()),
-              );
-            },
-          ),
-        ],
-      ),
-      if (post != [])
-          Container(
-            child: Text('$post'),
-          ),
+        body: Column(
+          children: [
+            ElevatedButton(
+              child: Text('New'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => New()),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('Location'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Location()),
+                );
+              },
+            ),
+          ],
+        ),
     );
 
   }
@@ -183,25 +172,12 @@ class MyCustomForm extends StatefulWidget {
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
 
-
-
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
         children: <Widget>[
-          Container(
-            height: 100,
-            color: Theme.of(context).accentColor,
-            child: CupertinoDatePicker(
-              mode: CupertinoDatePickerMode.date,
-              initialDateTime: DateTime(2020, 1, 1),
-              onDateTimeChanged: (DateTime newDateTime) {
-                date = newDateTime;
-              },
-            ),
-          ),
           TextFormField(
             onChanged: (text) {
               title = text;
@@ -245,6 +221,39 @@ class MyCustomFormState extends State<MyCustomForm> {
   }
 }
 
+class MyDatePicker extends StatefulWidget{
+  @override
+  MyDatePickerState createState() {
+    return MyDatePickerState();
+  }
+}
+
+class MyDatePickerState extends State<MyDatePicker>{
+  @override
+  Widget build(BuildContext context) {
+    DateTime _dateTime;
+    return Column(
+            children: <Widget>[
+              RaisedButton(
+                child: Text('Pick a date'),
+                onPressed: (){
+                  showDatePicker(
+                    context: context,
+                    initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+                    firstDate: DateTime(2010),
+                    lastDate: DateTime(2021),
+                  ).then((date) {
+                    setState((){
+                      _dateTime = date;
+                    });
+                  });
+                },
+              ),
+              Text('$_dateTime'),
+            ],
+    );
+  }
+}
 /*
 return showDialog(
                 context: context,
