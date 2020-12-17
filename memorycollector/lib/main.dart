@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           MyDatePicker(),
           MyCustomForm(),
-          Text('$post'),
+
         ],
       ),
     );
@@ -199,7 +199,7 @@ class MyDatePickerState extends State<MyDatePicker> {
           onPressed: () {
             showDatePicker(
               context: context,
-              initialDate: _dateTime == null ? DateTime.now() : _dateTime,
+              initialDate: DateTime.now(),
               firstDate: DateTime(2010),
               lastDate: DateTime(2021),
             ).then((date) {
@@ -209,7 +209,7 @@ class MyDatePickerState extends State<MyDatePicker> {
             });
           },
         ),
-        Text('$_dateTime'),
+        Text(_dateTime == null ? 'Nothing' : _dateTime.toString()),
       ],
     );
   }
