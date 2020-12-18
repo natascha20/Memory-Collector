@@ -1,13 +1,19 @@
+import 'dart:html';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:memorycollector/model/memory.dart';
+import 'package:memorycollector/utils/Database.dart';
+
 
 String title = "";
 String summary = "";
 DateTime date;
 String location = "";
+Url image;
+
 
 var post = new List(3);
 
@@ -46,33 +52,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<File> imageFile;
-
-  pickImageFromGallery(ImageSource source){
-    setState((){
-      // ignore: deprecated_member_use
-      imageFile = ImagePicker.pickImage(source: source);
-    });
-  }
-
-  Widget showImage(){
-    return FutureBuilder<File>(
-      future: imageFile,
-      builder: (BuildContext context, AsyncSnapshot<File> snapshot){
-        if(snapshot.connectionState == ConnectionState.done && snapshot.data != null){
-          return Image.file(
-            snapshot.data,
-            width: 300,
-            height: 300,
-          );
-        } else if (snapshot.error != null){
-          return const Text('Error picking image');
-        } else{
-          return const Text('No image selected');
-        }
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,20 +86,17 @@ class _MyHomePageState extends State<MyHomePage> {
           //       );
           //     },
           //   ),
-          showImage(),
-          RaisedButton(
-            child: Text('select from gallery'),
-            onPressed: (){
-              pickImageFromGallery(ImageSource.gallery);
-            },
-          ),
           MyDatePicker(),
           MyCustomForm(),
-
         ],
       ),
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+  };yxc
 }
 
 class MyCustomForm extends StatefulWidget {
@@ -170,9 +146,8 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
             child: Text('save'),
             onPressed: () {
-              post = [title, summary, location];
-              Scaffold.of(context);
-              print(post);
+              var newDBMemory = Memory(title: title, description: summary, image: image, date: date);
+              DBProvider.db.newMemory(newDBMemory);
             },
           ),
         ],
@@ -238,4 +213,9 @@ return showDialog(
                   );
                 },
               );
+ */
+/*
+post = [title, summary, location];
+              Scaffold.of(context);
+              print(post);
  */
