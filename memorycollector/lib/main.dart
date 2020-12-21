@@ -12,7 +12,7 @@ String title = "";
 String summary = "";
 DateTime date;
 String location = "";
-Url image;
+
 
 
 var post = new List(3);
@@ -52,21 +52,60 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Map<String, String> newMemory = {};
+  Future _memoryFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _memoryFuture = getMemory();
+  }
+
+  getMemory() async {
+    final _memoryData = await DBProvider.db.getMemory();
+    return _memoryData;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Theme
+          .of(context)
+          .accentColor,
       appBar: AppBar(
         title: Text(
           widget.title,
           style: TextStyle(
-            color: Theme.of(context).accentColor,
+            color: Theme
+                .of(context)
+                .accentColor,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      body: Column(
+      body: FutureBuilder(future: _memoryFuture, builder: (_, memoryData) {
+      switch (memoryData.connectionState) {
+        case ConnectionState.none:
+          return Container();
+        case ConnectionState.waiting:
+          return Container();
+        case ConnectionState.active:
+        case ConnectionState.done:
+          if (!newMemory.containsKey('title')) {
+            newMemory = Map<String, String>.from(memoryData.data);
+          }
+
+          return Column(children: [
+            MyDatePicker(),
+            MyCustomForm(),
+            Text(newMemory['title']),
+            Text(newMemory['summary']),
+          ]);
+      }
+      return Container();
+    },)
+    /*
+      Column(
         children: [
           //   ElevatedButton(
           //     child: Text('New'),
@@ -86,17 +125,12 @@ class _MyHomePageState extends State<MyHomePage> {
           //       );
           //     },
           //   ),
-          MyDatePicker(),
-          MyCustomForm(),
+
         ],
       ),
-    );
-  }
 
-  @override
-  void initState() {
-    super.initState();
-  };yxc
+     */);
+  }
 }
 
 class MyCustomForm extends StatefulWidget {
@@ -142,11 +176,14 @@ class MyCustomFormState extends State<MyCustomForm> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor),
+                  Theme
+                      .of(context)
+                      .primaryColor),
             ),
             child: Text('save'),
             onPressed: () {
-              var newDBMemory = Memory(title: title, description: summary, image: image, date: date);
+              var newDBMemory = Memory(
+                  title: title, description: summary, date: date); //image: image,
               DBProvider.db.newMemory(newDBMemory);
             },
           ),

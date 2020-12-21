@@ -35,7 +35,7 @@ class DBProvider {
       INSERT INTO memory (
         title, description, image, date
       ) VALUES(?,?,?,?)
-    ''', [newMemory.title, newMemory.description, newMemory.image, newMemory.date]);
+    ''', [newMemory.title, newMemory.description,  newMemory.date]); //newMemory.image,
 
     return res;
   }
