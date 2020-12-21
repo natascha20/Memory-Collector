@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 
 Memory memoryFromJson(String str) => Memory.fromJason(json.decode(str));
 
@@ -18,7 +17,7 @@ class Memory {
     this.date,
   });
 
-  factory Memory.fromJason(Map<String, dynamic> json) => Memory(
+  factory Memory.fromJason(Map<dynamic,dynamic> json) => Memory(
     title: json["title"],
     description: json["description"],
     //image: json["image"],

@@ -1,24 +1,18 @@
-import 'dart:html';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:memorycollector/model/memory.dart';
-import 'package:memorycollector/utils/Database.dart';
-
+import 'package:mysql1/mysql1.dart';
+import 'package:sqflite/sqflite.dart';
+//import 'package:image_picker/image_picker.dart';
+//import 'package:memorycollector/model/memory.dart';
+//import 'package:memorycollector/utils/Database.dart';
 
 String title = "";
 String summary = "";
 DateTime date;
-String location = "";
 
-
-
-var post = new List(3);
-
-void setState(Null Function() param0) {}
-
+void setState(Function() param0) {}
 void main() {
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
@@ -26,7 +20,6 @@ void main() {
   };
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -52,84 +45,26 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Map<String, String> newMemory = {};
-  Future _memoryFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    _memoryFuture = getMemory();
-  }
-
-  getMemory() async {
-    final _memoryData = await DBProvider.db.getMemory();
-    return _memoryData;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .accentColor,
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
         title: Text(
           widget.title,
           style: TextStyle(
-            color: Theme
-                .of(context)
-                .accentColor,
+            color: Theme.of(context).accentColor,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      body: FutureBuilder(future: _memoryFuture, builder: (_, memoryData) {
-      switch (memoryData.connectionState) {
-        case ConnectionState.none:
-          return Container();
-        case ConnectionState.waiting:
-          return Container();
-        case ConnectionState.active:
-        case ConnectionState.done:
-          if (!newMemory.containsKey('title')) {
-            newMemory = Map<String, String>.from(memoryData.data);
-          }
-
-          return Column(children: [
-            MyDatePicker(),
-            MyCustomForm(),
-            Text(newMemory['title']),
-            Text(newMemory['summary']),
-          ]);
-      }
-      return Container();
-    },)
-    /*
-      Column(
+      body: Column(
         children: [
-          //   ElevatedButton(
-          //     child: Text('New'),
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(builder: (context) => New()),
-          //       );
-          //     },
-          //   ),
-          //   ElevatedButton(
-          //     child: Text('Location'),
-          //     onPressed: () {
-          //       Navigator.push(
-          //         context,
-          //         MaterialPageRoute(builder: (context) => Location()),
-          //       );
-          //     },
-          //   ),
-
+          MyCustomForm(),
+          MyDatePicker(),
         ],
       ),
-
-     */);
+    );
   }
 }
 
@@ -165,26 +100,23 @@ class MyCustomFormState extends State<MyCustomForm> {
               labelText: 'Beschreibung',
             ),
           ),
-          TextFormField(
-            onChanged: (text) {
-              location = text;
-            },
-            decoration: InputDecoration(
-              labelText: 'Ort',
-            ),
-          ),
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme
-                      .of(context)
-                      .primaryColor),
+                  Theme.of(context).primaryColor),
             ),
             child: Text('save'),
-            onPressed: () {
-              var newDBMemory = Memory(
-                  title: title, description: summary, date: date); //image: image,
-              DBProvider.db.newMemory(newDBMemory);
+            onPressed: () async {
+              var settings = new ConnectionSettings(
+                  host: 'localhost',
+                  port: 3306,
+                  user: 'root',
+                  password: '',
+                  db: 'memorycollectordb');
+              var conn = await MySqlConnection.connect(settings);
+              var userId = 1;
+              var memories = await conn.query('insert into memories (title, description, date) values (?, ?, ?)', ['Bob', 'bob@bob.com', DateTime.now()]);
+              print("New memories id: ${memories.insertId}");
             },
           ),
         ],
@@ -226,33 +158,4 @@ class MyDatePickerState extends State<MyDatePicker> {
     );
   }
 }
-/*
-return showDialog(
-                context: context,
-                builder: (context) {
-                  return Scaffold(
-                    backgroundColor: Theme
-                        .of(context)
-                        .accentColor,
-                    body: Column(
-                      children: <Widget>[
-                        Container(
-                            child: Text('\n Titel: ' + title + '\n Beschreibung: ' + summary + '\n Ort: ' + location),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Theme.of(context).highlightColor,
-                          ),
-                          padding: EdgeInsets.all(40.0),
-                          margin: EdgeInsets.all(25.0),
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              );
- */
-/*
-post = [title, summary, location];
-              Scaffold.of(context);
-              print(post);
- */
+
