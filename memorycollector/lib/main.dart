@@ -108,14 +108,13 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Text('save'),
             onPressed: () async {
               var settings = new ConnectionSettings(
-                  host: 'localhost',
-                  port: 3306,
+                  host: '192.168.1.115',
+                  port: 8080,
                   user: 'root',
                   password: '',
                   db: 'memorycollectordb');
               var conn = await MySqlConnection.connect(settings);
-              var userId = 1;
-              var memories = await conn.query('insert into memories (title, description, date) values (?, ?, ?)', ['Bob', 'bob@bob.com', DateTime.now()]);
+              var memories = await conn.query('insert into memories (title, description, date) values (?, ?, ?)', ['$title', '$summary', DateTime.now()]);
               print("New memories id: ${memories.insertId}");
             },
           ),
