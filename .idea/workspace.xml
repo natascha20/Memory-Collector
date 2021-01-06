@@ -25,7 +25,6 @@
     <list default="true" id="23ac6bf2-8dc1-49fd-b80b-3871db185409" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/memorycollector/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/memorycollector/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/memorycollector/lib/utils/Database.dart" beforeDir="false" afterPath="$PROJECT_DIR$/memorycollector/lib/utils/Database.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,30 +106,34 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="633" y="354" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1608544033542" />
-    <state width="1750" height="275" key="GridCell.Tab.0.bottom" timestamp="1609926596303">
+    <state x="759" y="328" key="AndroidProcessChooserDialog" timestamp="1609935832168">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="275" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1609926596303" />
+    <state x="759" y="328" key="AndroidProcessChooserDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1609935832168" />
+    <state width="1750" height="204" key="GridCell.Tab.0.bottom" timestamp="1609936051403">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="204" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1609936051403" />
     <state width="1750" height="258" key="GridCell.Tab.0.bottom/0.25.1792.1095@0.25.1792.1095" timestamp="1608294496964" />
-    <state width="1750" height="275" key="GridCell.Tab.0.center" timestamp="1609926596302">
+    <state width="1750" height="204" key="GridCell.Tab.0.center" timestamp="1609936051402">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="275" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1609926596302" />
+    <state width="1750" height="204" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1609936051402" />
     <state width="1750" height="258" key="GridCell.Tab.0.center/0.25.1792.1095@0.25.1792.1095" timestamp="1608294496963" />
-    <state width="1750" height="275" key="GridCell.Tab.0.left" timestamp="1609926596301">
+    <state width="1750" height="204" key="GridCell.Tab.0.left" timestamp="1609936051401">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="275" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1609926596301" />
+    <state width="1750" height="204" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1609936051401" />
     <state width="1750" height="258" key="GridCell.Tab.0.left/0.25.1792.1095@0.25.1792.1095" timestamp="1608294496963" />
-    <state width="1750" height="275" key="GridCell.Tab.0.right" timestamp="1609926596303">
+    <state width="1750" height="204" key="GridCell.Tab.0.right" timestamp="1609936051402">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state width="1750" height="275" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1609926596303" />
+    <state width="1750" height="204" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1609936051402" />
     <state width="1750" height="258" key="GridCell.Tab.0.right/0.25.1792.1095@0.25.1792.1095" timestamp="1608294496964" />
-    <state x="397" y="199" width="1260" height="728" key="SettingsEditor" timestamp="1607589099920">
+    <state x="397" y="199" width="1260" height="728" key="SettingsEditor" timestamp="1609935854174">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="397" y="199" width="1260" height="728" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1607589099920" />
+    <state x="397" y="199" width="1260" height="728" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1609935854174" />
     <state width="600" height="428" key="javadoc.popup" timestamp="1607605646026">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>

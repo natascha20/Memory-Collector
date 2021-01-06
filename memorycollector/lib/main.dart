@@ -23,28 +23,26 @@ void _saveNewMemory(String titleController, String summaryController) async {
   var date = DateTime.now();
   var insert = await conn.query(
       'INSERT INTO `memories`(`id`, `title`, `description`, `date`) VALUES (?,?,?,?)',
-      ['1', '$header', '$description', '$date']);
-  conn.close();
-}
-/*
-void _getNoteValue(String nameNote) async {
-  var settings = new ConnectionSettings(
-      host: 'mysql2.webland.ch',
-      user: 'd041e_memorycollector',
-      password: 'Memory_12345!!!',
-      db: 'd041e_memorycollector');
-  var conn = await MySqlConnection.connect(settings);
-  var getText = await conn.query(
-      'SELECT * FROM memories WHERE title = ? AND description = ?',
-      ['$title', '$summary']);
-  for (var row in getText) {
-    title = row[1];
-    summary = row[2];
-  }
+      ['', '$header', '$description', '$date']);
   conn.close();
 }
 
- */
+void _getMemory(String header, String description) async {
+  var settings = new ConnectionSettings(
+      host: 'mysql2.webland.ch',
+      user: 'd041e_memorycollector',
+      password: 'Memory_12345',
+      db: 'd041e_memorycollector');
+  var conn = await MySqlConnection.connect(settings);
+  var getText = await conn.query(
+      'SELECT `id`, `title`, `description`, `date` FROM `memories` WHERE 1',
+      ['$header', '$description']);
+  for (var row in getText) {
+    header = row[1];
+    description = row[2];
+  }
+  conn.close();
+}
 
 String title = "";
 String summary = "";
@@ -148,12 +146,18 @@ class MyCustomFormState extends State<MyCustomForm> {
       child: Column(
         children: <Widget>[
           TextFormField(
+            onChanged: (text) {
+              text = title;
+            },
             controller: titleController,
             decoration: InputDecoration(
               labelText: 'Titel',
             ),
           ),
           TextFormField(
+            onChanged: (text) {
+              text = summary;
+            },
             controller: summaryController,
             decoration: InputDecoration(
               labelText: 'Beschreibung',
@@ -167,8 +171,9 @@ class MyCustomFormState extends State<MyCustomForm> {
             child: Text('save'),
             onPressed: () async {
               //send data to db
-              _saveNewMemory;
-              print('hello');
+              _saveNewMemory(titleController.text, summaryController.text);
+              _getMemory('$title', '$summary');
+              print('done');
             },
           ),
         ],
