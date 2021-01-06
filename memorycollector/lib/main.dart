@@ -2,17 +2,56 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mysql1/mysql1.dart';
-import 'package:sqflite/sqflite.dart';
+
+//import 'package:sqflite/sqflite.dart';
 //import 'package:image_picker/image_picker.dart';
 //import 'package:memorycollector/model/memory.dart';
 //import 'package:memorycollector/utils/Database.dart';
+
+import 'package:mysql1/mysql1.dart';
+
+//Connection to db
+void _saveNewMemory(String titleController, String summaryController) async {
+  var settings = new ConnectionSettings(
+      host: 'mysql2.webland.ch',
+      user: 'd041e_memorycollector',
+      password: 'Memory_12345',
+      db: 'd041e_memorycollector');
+  var conn = await MySqlConnection.connect(settings);
+  var header = titleController;
+  var description = summaryController;
+  var date = DateTime.now();
+  var insert = await conn.query(
+      'INSERT INTO `memories`(`id`, `title`, `description`, `date`) VALUES (?,?,?,?)',
+      ['1', '$header', '$description', '$date']);
+  conn.close();
+}
+/*
+void _getNoteValue(String nameNote) async {
+  var settings = new ConnectionSettings(
+      host: 'mysql2.webland.ch',
+      user: 'd041e_memorycollector',
+      password: 'Memory_12345!!!',
+      db: 'd041e_memorycollector');
+  var conn = await MySqlConnection.connect(settings);
+  var getText = await conn.query(
+      'SELECT * FROM memories WHERE title = ? AND description = ?',
+      ['$title', '$summary']);
+  for (var row in getText) {
+    title = row[1];
+    summary = row[2];
+  }
+  conn.close();
+}
+
+ */
 
 String title = "";
 String summary = "";
 DateTime date;
 
 void setState(Function() param0) {}
+
 void main() {
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.dumpErrorToConsole(details);
@@ -20,6 +59,7 @@ void main() {
   };
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -61,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           MyCustomForm(),
-          MyDatePicker(),
+          //MyDatePicker(),
         ],
       ),
     );
@@ -77,6 +117,29 @@ class MyCustomForm extends StatefulWidget {
 
 class MyCustomFormState extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
+  final summaryController = TextEditingController();
+  final titleController = TextEditingController();
+
+  void _printLatestValue() {
+    print("Second text field: ${summaryController.text}");
+    print("Second text field: ${titleController.text}");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Start listening to changes.
+    summaryController.addListener(_printLatestValue);
+    titleController.addListener(_printLatestValue);
+  }
+
+  @override
+  void dispose() {
+    summaryController.dispose();
+    titleController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,17 +148,13 @@ class MyCustomFormState extends State<MyCustomForm> {
       child: Column(
         children: <Widget>[
           TextFormField(
-            onChanged: (text) {
-              title = text;
-            },
+            controller: titleController,
             decoration: InputDecoration(
               labelText: 'Titel',
             ),
           ),
           TextFormField(
-            onChanged: (text) {
-              summary = text;
-            },
+            controller: summaryController,
             decoration: InputDecoration(
               labelText: 'Beschreibung',
             ),
@@ -107,15 +166,9 @@ class MyCustomFormState extends State<MyCustomForm> {
             ),
             child: Text('save'),
             onPressed: () async {
-              var settings = new ConnectionSettings(
-                  host: '192.168.1.115',
-                  port: 8080,
-                  user: 'root',
-                  password: '',
-                  db: 'memorycollectordb');
-              var conn = await MySqlConnection.connect(settings);
-              var memories = await conn.query('insert into memories (title, description, date) values (?, ?, ?)', ['$title', '$summary', DateTime.now()]);
-              print("New memories id: ${memories.insertId}");
+              //send data to db
+              _saveNewMemory;
+              print('hello');
             },
           ),
         ],
@@ -123,7 +176,7 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
-
+/*
 class MyDatePicker extends StatefulWidget {
   @override
   MyDatePickerState createState() {
@@ -158,3 +211,5 @@ class MyDatePickerState extends State<MyDatePicker> {
   }
 }
 
+
+ */
