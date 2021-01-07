@@ -2,13 +2,11 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mysql1/mysql1.dart';
+import 'package:image_picker/image_picker.dart';
 
-//import 'package:sqflite/sqflite.dart';
-//import 'package:image_picker/image_picker.dart';
 //import 'package:memorycollector/model/memory.dart';
 //import 'package:memorycollector/utils/Database.dart';
-
-import 'package:mysql1/mysql1.dart';
 
 //Connection to db
 void _saveNewMemory(String titleController, String summaryController) async {
@@ -24,22 +22,17 @@ void _saveNewMemory(String titleController, String summaryController) async {
   var insert = await conn.query(
       'INSERT INTO `memories`(`id`, `title`, `description`, `date`) VALUES (?,?,?,?)',
       ['', '$header', '$description', '$date']);
-  conn.close();
-}
 
-void _getMemory(String header, String description) async {
-  var settings = new ConnectionSettings(
-      host: 'mysql2.webland.ch',
-      user: 'd041e_memorycollector',
-      password: 'Memory_12345',
-      db: 'd041e_memorycollector');
-  var conn = await MySqlConnection.connect(settings);
-  var getText = await conn.query(
-      'SELECT `id`, `title`, `description`, `date` FROM `memories` WHERE 1',
-      ['$header', '$description']);
-  for (var row in getText) {
-    header = row[1];
-    description = row[2];
+  var inserts = await conn.query(
+      'select title, description from memories where id = ?',
+      [insert.insertId]);
+  List text = [insert];
+
+  for (var row in inserts) {
+    print(text.length);
+    text.add(row[0] & row[1]);
+    print(text.length);
+    print(text);
   }
   conn.close();
 }
@@ -86,12 +79,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Theme
+          .of(context)
+          .accentColor,
       appBar: AppBar(
         title: Text(
           widget.title,
           style: TextStyle(
-            color: Theme.of(context).accentColor,
+            color: Theme
+                .of(context)
+                .accentColor,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -166,13 +163,14 @@ class MyCustomFormState extends State<MyCustomForm> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).primaryColor),
+                  Theme
+                      .of(context)
+                      .primaryColor),
             ),
             child: Text('save'),
             onPressed: () async {
               //send data to db
               _saveNewMemory(titleController.text, summaryController.text);
-              _getMemory('$title', '$summary');
               print('done');
             },
           ),
@@ -181,6 +179,8 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
+
+
 /*
 class MyDatePicker extends StatefulWidget {
   @override
