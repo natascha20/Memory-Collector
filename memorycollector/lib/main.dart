@@ -58,8 +58,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'MemoryCollector',
       theme: ThemeData(
-        primaryColor: Colors.pink[200],
-        accentColor: Colors.deepOrange[100],
+        primaryColor: Colors.lightBlue[100],
+        accentColor: Colors.green[50],
         highlightColor: Colors.deepPurple[50],
       ),
       home: MyHomePage(title: 'MemoryCollector'),
@@ -165,7 +165,6 @@ class MyCustomFormState extends State<MyCustomForm> {
             onPressed: () async {
               //send data to db
               _saveNewMemory(titleController.text, summaryController.text);
-              print('Done');
             },
           ),
         ],
