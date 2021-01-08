@@ -26,13 +26,13 @@ void _saveNewMemory(String titleController, String summaryController) async {
   var inserts = await conn.query(
       'select title, description from memories where id = ?',
       [insert.insertId]);
-  List text = [insert];
 
   for (var row in inserts) {
-    print(text.length);
-    text.add(row[0] & row[1]);
-    print(text.length);
+    List text = [''];
+    text.add(row[0]);
+    text.add(row[1]);
     print(text);
+    Text('$text');
   }
   conn.close();
 }
@@ -79,16 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .accentColor,
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
         title: Text(
           widget.title,
           style: TextStyle(
-            color: Theme
-                .of(context)
-                .accentColor,
+            color: Theme.of(context).accentColor,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -163,15 +159,13 @@ class MyCustomFormState extends State<MyCustomForm> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme
-                      .of(context)
-                      .primaryColor),
+                  Theme.of(context).primaryColor),
             ),
             child: Text('save'),
             onPressed: () async {
               //send data to db
               _saveNewMemory(titleController.text, summaryController.text);
-              print('done');
+              print('Done');
             },
           ),
         ],
@@ -179,7 +173,6 @@ class MyCustomFormState extends State<MyCustomForm> {
     );
   }
 }
-
 
 /*
 class MyDatePicker extends StatefulWidget {
